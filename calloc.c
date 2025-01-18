@@ -1,5 +1,5 @@
 /**
- * Create an array using malloc.
+ * Create an array using calloc.
  * Size and elements of the array are user input.
  * 
  */
@@ -15,13 +15,12 @@ int main()
     printf("Enter Size of array:");
     scanf("%d", &size);
 
-    //ptr= (cast -type* ) malloc(byte-size)
-    // malloc return a pointer of type void which can be cast into
+    //ptr= (cast -type* ) calloc(n,element-size) , n-> no. of element
+    // calloc return a pointer of type void which can be cast into
     // a pointer of any form.
-    // Initialize each block with the default garbage value.
+    // Initialize each block with the default value 0.
     // Memory allocated in contiguous blocks
-    // allocate single large block of memory
-    arr_ptr = (int *)malloc(size * sizeof(int));
+    arr_ptr = (int *)calloc(size , sizeof(int));
 
     // If space is insufficient, allocation fails and returns a NULL pointer
     if (arr_ptr == NULL)

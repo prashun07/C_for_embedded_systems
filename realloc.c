@@ -1,5 +1,5 @@
 /**
- * Create an array using malloc.
+ * Create an array using calloc and resize using realloc.
  * Size and elements of the array are user input.
  * 
  */
@@ -15,13 +15,7 @@ int main()
     printf("Enter Size of array:");
     scanf("%d", &size);
 
-    //ptr= (cast -type* ) malloc(byte-size)
-    // malloc return a pointer of type void which can be cast into
-    // a pointer of any form.
-    // Initialize each block with the default garbage value.
-    // Memory allocated in contiguous blocks
-    // allocate single large block of memory
-    arr_ptr = (int *)malloc(size * sizeof(int));
+    arr_ptr = (int *)calloc(size , sizeof(int));
 
     // If space is insufficient, allocation fails and returns a NULL pointer
     if (arr_ptr == NULL)
@@ -39,13 +33,37 @@ int main()
             arr_ptr[i] = x;
         }
     }
+    int newSize;
+    printf("\nEnter the new Size of array");
+    scanf("%d",&newSize);
+
+    arr_ptr=(int*)realloc(arr_ptr,(newSize)*sizeof(int));
+
+    if(arr_ptr==NULL)
+    {
+        printf("Reallocation Failed\n");
+        exit(0);
+    }
+    else{
+        printf("\n Memory successfully allocated!");
+        
+        for (int i = size; i < newSize; i++)
+        {  
+            printf("\n Enter array details:");
+            int x;
+            scanf("%d", &x);
+            arr_ptr[i] = x;
+        } 
+    }
+
     //print the elements of array
     printf("\nElements of array are:");
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < newSize; i++)
     {
         //printf("%x ", &arr_ptr[i]);
         printf("%d ", arr_ptr[i]);
     }
+
     // Need to free allocated memory to avoid leaks.
     // malloc cannot deallocate memory itself.
     free(arr_ptr);
